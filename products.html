@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Our Collections - Browse all SehatHerb products">
+    <title>All Products - SehatHerb</title>
+    <link rel="icon" type="image/jpeg" href="Images/WhatsApp Image 2026-01-15 at 2.49.33 PM.jpeg">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Announcement Bar -->
+    <div class="announcement-bar">
+        <p>🌿 Shop our latest arrivals - Free shipping nationwide on orders above Rs. 2000</p>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+        <div class="logo">
+            <a href="index.html" title="SehatHerb">
+                <img src="Images/WhatsApp Image 2026-01-15 at 2.49.33 PM.jpeg" alt="SehatHerb" class="logo-img">
+            </a>
+        </div>                <!-- Navigation Menu -->
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="products.html" class="nav-link active">Our Collections</a>
+                    <a href="#" class="nav-link">Contact</a>
+                    <a href="products.html" class="nav-link">All Products</a>
+                </nav>
+
+                <!-- Search and Cart Icons -->
+                <div class="header-icons">
+                    <div class="search-box">
+                        <input type="text" placeholder="Search products..." class="search-input">
+                        <button class="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                    <a href="cart.html" class="cart-icon">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle -->
+                <button class="mobile-menu-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <h1 class="page-title">Our Collections</h1>
+            
+            <!-- Filter/Sort Options -->
+            <div class="products-controls">
+                <div class="sort-options">
+                    <select id="sort-select" class="sort-select">
+                        <option value="latest">Latest</option>
+                        <option value="price-low">Price: Low to High</option>
+                        <option value="price-high">Price: High to Low</option>
+                        <option value="name">Product Name</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1599599810694-b5ac4dd33fdf?w=400&h=400&fit=crop" alt="Turmeric Powder">
+                        <span class="product-badge">Sale</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Pure Turmeric Powder</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half"></i>
+                            <span>(45)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="product-price">Rs. 450</span>
+                            <span class="original-price">Rs. 899</span>
+                        </div>
+                        <button class="btn-view-details" data-product-id="1">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=400&h=400&fit=crop" alt="Ginger Root">
+                        <span class="product-badge">Sale</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Dried Ginger Root</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(38)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="product-price">Rs. 599</span>
+                            <span class="original-price">Rs. 799</span>
+                        </div>
+                        <button class="btn-view-details" data-product-id="2">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1599599810956-72f370c859d1?w=400&h=400&fit=crop" alt="Green Tea">
+                        <span class="product-badge">Sale</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Organic Green Tea</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half"></i>
+                            <span>(52)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="product-price">Rs. 749</span>
+                            <span class="original-price">Rs. 999</span>
+                        </div>
+                        <button class="btn-view-details" data-product-id="3">
+                            View Details
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Product 4 -->
+                <!-- <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1599599810694-b5ac4dd33fdf?w=400&h=400&fit=crop" alt="Basil Leaves">
+                        <span class="product-badge">Sale</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Dried Holy Basil (Tulsi)</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(41)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="product-price">Rs. 899</span>
+                            <span class="original-price">Rs. 1,299</span>
+                        </div>
+                        <button class="btn-view-details" data-product-id="4">
+                            View Details
+                        </button>
+                    </div>
+                </div> -->
+
+                <!-- Product 5 -->
+                <!-- <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1599599810956-72f370c859d1?w=400&h=400&fit=crop" alt="Cinnamon Sticks">
+                        <span class="product-badge">Sale</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Premium Cinnamon Sticks</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half"></i>
+                            <span>(35)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="product-price">Rs. 749</span>
+                            <span class="original-price">Rs. 999</span>
+                        </div>
+                        <button class="btn-view-details" data-product-id="5">
+                            View Details
+                        </button>
+                    </div>
+                </div> -->
+
+                <!-- Product 6 -->
+                <!-- <div class="product-card">
+                    <div class="product-image">
+                        <img src="https://images.unsplash.com/photo-1599599810694-b5ac4dd33fdf?w=400&h=400&fit=crop" alt="Mint Leaves">
+                        <span class="product-badge">Sale</span>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">Dried Peppermint Leaves</h3>
+                        <div class="product-rating">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <span>(48)</span>
+                        </div>
+                        <div class="product-pricing">
+                            <span class="product-price">Rs. 599</span>
+                            <span class="original-price">Rs. 799</span>
+                        </div>
+                        <button class="btn-view-details" data-product-id="6">
+                            View Details
+                        </button>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About SehatHerb</h3>
+                    <p>Premium herbal products for natural wellness and healthy living.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="products.html">All Products</a></li>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>Email: sehatherb.pk@gmail.com</p>
+                    <p>Phone: +92-304-0105467</p>
+                    <p>Pakistan</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 SehatHerb. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Chat Button -->
+    <a href="https://wa.me/923040105467" class="whatsapp-btn" target="_blank" title="Chat with us on WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script src="app.js"></script>
+</body>
+</html>
