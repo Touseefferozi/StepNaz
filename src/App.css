@@ -1,0 +1,101 @@
+/* App Layout */
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #ffffff;
+}
+
+.main-content {
+    flex: 1;
+    min-height: calc(100vh - 200px);
+}
+
+/* Empty States */
+.no-products,
+.empty-cart {
+    text-align: center;
+    padding: 3rem 2rem;
+    border-radius: 8px;
+    margin: 2rem 0;
+}
+
+.no-products {
+    background-color: var(--light-gray);
+}
+
+.no-products i,
+.empty-cart i {
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+}
+
+.no-products i {
+    font-size: 3rem;
+}
+
+.empty-cart {
+    background-color: transparent;
+}
+
+.empty-cart i {
+    font-size: 4rem;
+}
+
+.empty-cart h2,
+.no-products h2 {
+    margin-bottom: 1rem;
+    color: var(--text-dark);
+}
+
+.empty-cart p,
+.no-products p {
+    color: var(--text-light);
+    margin-bottom: 2rem;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    display: flex;
+    gap: 0.5rem;
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.breadcrumb a {
+    color: var(--secondary-color);
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+/* Page & Section Headers */
+.page-header,
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.page-header {
+    margin: 2rem 0 3rem;
+}
+
+.page-header h1,
+.section-header h2 {
+    margin-bottom: 0.5rem;
+}
+
+.page-header p,
+.section-header p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .main-content {
+        min-height: auto;
+    }
+}

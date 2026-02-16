@@ -14,7 +14,6 @@ d:\Saylani_MAss IT Tranng\Ecommerec\organic-herb\
 ## 🎯 What's Included
 
 ### ✅ Core Website Files
-
 | File | Purpose |
 |------|---------|
 | `index.html` | Homepage with hero section and featured products |
@@ -24,6 +23,7 @@ d:\Saylani_MAss IT Tranng\Ecommerec\organic-herb\
 | `checkout.html` | Complete checkout with shipping/payment |
 | `styles.css` | Professional, responsive styling (2000+ lines) |
 | `app.js` | Full JavaScript functionality (700+ lines) |
+
 
 ### 📚 Documentation Files
 
