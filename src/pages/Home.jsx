@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import bannerImg from '../Images/Banner.jpeg';
 import { Link } from 'react-router-dom';
 import { products as initialProducts } from '../data/products';
 import { db } from '../config/firebase';
@@ -55,7 +54,7 @@ export const Home = () => {
             <section className="hero">
                 <div className="hero-background">
                     <div className="hero-overlay"></div>
-                    <img src={bannerImg} alt="StepNaz Footwear Collection" className="banner-image" />
+                    <img src="/Images/Banner.jpeg" alt="StepNaz Footwear Collection" className="banner-image" />
                 </div>
                 <div className="hero-content">
                     <h1 className="hero-title">Step Into Elegance</h1>
