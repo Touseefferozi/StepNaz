@@ -50,61 +50,96 @@ export const Cart = () => {
 
                 <div className="cart-content">
                     {/* Cart Items */}
-                    <div className="cart-items">
-                        <div className="cart-header">
-                            <span>Product</span>
-                            <span>Price</span>
-                            <span>Quantity</span>
-                            <span>Total</span>
-                            <span></span>
-                        </div>
-
+                    <div className="cart-items" style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: 'clamp(1rem, 3vw, 1.5rem)',
+                        width: '100%'
+                    }}>
                         {cart.map(item => (
-                            <div key={item.id} className="cart-item">
-                                <Link to={`/product/${item.id}`} className="item-image">
-                                    <img src={item.image} alt={item.name} />
+                            <div key={item.id} className="cart-item" style={{
+                                display: 'flex',
+                                flexDirection: window.innerWidth < 768 ? 'column' : 'row',
+                                alignItems: 'center',
+                                gap: 'clamp(1rem, 3vw, 1.5rem)',
+                                padding: 'clamp(1rem, 3vw, 1.5rem)',
+                                background: '#fff',
+                                borderRadius: '12px',
+                                border: '1px solid #f0f0f0',
+                                boxShadow: '0 3px 12px rgba(0,0,0,0.04)',
+                                position: 'relative'
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.boxShadow = '0 10px 26px rgba(0,0,0,0.08)';
+                                e.currentTarget.style.transform = 'translateY(-4px)';
+                                e.currentTarget.style.borderColor = '#f2a54a';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.boxShadow = '0 3px 12px rgba(0,0,0,0.04)';
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.borderColor = '#f0f0f0';
+                            }}>
+                                <Link to={`/product/${item.id}`} className="item-image" style={{
+                                    flex: '0 0 clamp(80px, 12vw, 120px)',
+                                    display: 'block'
+                                }}>
+                                    <img src={item.image} alt={item.name} style={{
+                                        width: '100%',
+                                        height: 'auto',
+                                        aspectRatio: '1',
+                                        objectFit: 'cover',
+                                        borderRadius: '8px',
+                                        boxShadow: '0 4px 12px rgba(0,0,0,0.06)'
+                                    }}/>
                                 </Link>
-                                <div className="item-details">
-                                    <Link to={`/product/${item.id}`} className="item-name">
-                                        {item.name}
-                                    </Link>
-                                    <p className="item-sku">SKU: {item.sku}</p>
-                                    {item.size && <p className="item-size">Size: {item.size}</p>}
+
+                                <div className="item-details" style={{
+                                    flex: 1,
+                                    textAlign: window.innerWidth < 768 ? 'center' : 'left'
+                                }}>
+                                    <Link to={`/product/${item.id}`} className="item-name" style={{
+                                        fontSize: 'clamp(1rem, 2.2vw, 1.15rem)',
+                                        fontWeight: '700',
+                                        color: '#1a1a1a',
+                                        textDecoration: 'none',
+                                        display: 'block',
+                                        marginBottom: '0.25rem'
+                                    }}>{item.name}</Link>
+                                    {item.size && <p style={{margin: '0.15rem 0', color: '#333', fontWeight: 600}}>Shoe size: <strong style={{color:'#1a1a1a'}}>{item.size}</strong></p>}
+                                    <div style={{
+                                        marginTop: '0.6rem',
+                                        display: 'flex',
+                                        gap: '0.6rem',
+                                        alignItems: 'center',
+                                        justifyContent: window.innerWidth < 768 ? 'center' : 'flex-start'
+                                    }}>
+                                        <button onClick={() => updateQuantity(item.id, item.quantity - 1, item.size)} style={{
+                                            width: '36px', height: '36px', borderRadius: '8px', border: '1px solid #eee', background:'#fff', cursor:'pointer'
+                                        }}>-</button>
+                                        <div style={{minWidth: '44px', textAlign: 'center', fontWeight:700}}>{item.quantity}</div>
+                                        <button onClick={() => updateQuantity(item.id, item.quantity + 1, item.size)} style={{
+                                            width: '36px', height: '36px', borderRadius: '8px', border: '1px solid #eee', background:'#fff', cursor:'pointer'
+                                        }}>+</button>
+                                    </div>
+                                    <button onClick={() => removeFromCart(item.id, item.size)} style={{
+                                        marginTop: '0.6rem',
+                                        background: 'transparent',
+                                        border: 'none',
+                                        color: '#666',
+                                        cursor: 'pointer',
+                                        textDecoration: 'underline'
+                                    }}>Remove</button>
                                 </div>
-                                <div className="item-price">
+
+                                <div style={{
+                                    flex: '0 0 140px',
+                                    textAlign: 'right',
+                                    fontSize: 'clamp(1rem, 2.2vw, 1.15rem)',
+                                    fontWeight: '800',
+                                    color: '#ea580c'
+                                }}>
                                     Rs. {item.price.toLocaleString('en-PK')}
                                 </div>
-                                <div className="item-quantity">
-                                    <button 
-                                        onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                                        className="qty-btn"
-                                    >
-                                        -
-                                    </button>
-                                    <input 
-                                        type="number" 
-                                        value={item.quantity}
-                                        onChange={(e) => updateQuantity(item.id, parseInt(e.target.value) || 1)}
-                                        min="1"
-                                        className="qty-input"
-                                    />
-                                    <button 
-                                        onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                                        className="qty-btn"
-                                    >
-                                        +
-                                    </button>
-                                </div>
-                                <div className="item-total">
-                                    Rs. {(item.price * item.quantity).toLocaleString('en-PK')}
-                                </div>
-                                <button 
-                                    onClick={() => removeFromCart(item.id)}
-                                    className="btn-remove"
-                                    title="Remove item"
-                                >
-                                    <i className="fas fa-trash"></i>
-                                </button>
                             </div>
                         ))}
                     </div>

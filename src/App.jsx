@@ -49,11 +49,11 @@ function AppContent() {
 
 function App() {
     return (
-        <AuthProvider>
-            <CartProvider>
+        <CartProvider>
+            <AuthProvider>
                 <AppContent />
-            </CartProvider>
-        </AuthProvider>
+            </AuthProvider>
+        </CartProvider>
     );
 }
 

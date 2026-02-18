@@ -23,207 +23,42 @@ export const Checkout = () => {
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [orderData, setOrderData] = useState(null);
 
-    // Show success popup instead of checking empty cart
+    // Compact mobile-friendly success bottom-sheet
     if (showSuccessPopup && orderData) {
         return (
-            <div style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'rgba(0, 0, 0, 0.7)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: 9999,
-                padding: '1rem',
-                animation: 'fadeIn 0.3s ease'
-            }}>
+            <div style={{ position: 'fixed', inset: 0, zIndex: 9999, display: 'flex', alignItems: 'flex-end', justifyContent: 'center', pointerEvents: 'auto' }}>
+                <div style={{ position: 'absolute', inset: 0, background: 'rgba(0,0,0,0.35)' }} onClick={() => { setShowSuccessPopup(false); }} />
                 <div style={{
-                    background: '#fff',
-                    borderRadius: '20px',
-                    padding: '3rem 2.5rem',
-                    maxWidth: '500px',
                     width: '100%',
-                    textAlign: 'center',
-                    boxShadow: '0 20px 60px rgba(0, 0, 0, 0.3)',
-                    animation: 'slideUp 0.4s ease'
+                    maxWidth: '420px',
+                    margin: '0 12px 12px',
+                    background: '#fff',
+                    borderRadius: '14px',
+                    padding: '12px',
+                    boxShadow: '0 12px 30px rgba(0,0,0,0.18)',
+                    transform: 'translateY(0)',
+                    animation: 'slideUp 220ms ease'
                 }}>
-                    {/* Success Icon */}
-                    <div style={{
-                        width: '80px',
-                        height: '80px',
-                        background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
-                        borderRadius: '50%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        fontSize: '3.5rem',
-                        color: '#fff',
-                        margin: '0 auto 1.5rem',
-                        boxShadow: '0 10px 25px rgba(34, 197, 94, 0.3)'
-                    }}>
-                        ✓
-                    </div>
-
-                    {/* Success Message */}
-                    <h2 style={{
-                        fontSize: '2rem',
-                        fontWeight: '800',
-                        color: '#222',
-                        margin: '0 0 0.8rem 0',
-                        letterSpacing: '-0.5px'
-                    }}>Order Placed Successfully!</h2>
-
-                    <p style={{
-                        fontSize: '1rem',
-                        color: '#666',
-                        margin: '0 0 1.5rem 0',
-                        lineHeight: '1.6'
-                    }}>
-                        Thank you for your order. Your items will be dispatched soon.
-                    </p>
-
-                    {/* Order ID */}
-                    <div style={{
-                        background: '#f5f5f5',
-                        padding: '1rem',
-                        borderRadius: '12px',
-                        marginBottom: '1.5rem',
-                        border: '2px solid #e5e7eb'
-                    }}>
-                        <p style={{
-                            margin: '0 0 0.5rem 0',
-                            fontSize: '0.85rem',
-                            color: '#999',
-                            fontWeight: '600',
-                            letterSpacing: '0.5px'
-                        }}>ORDER ID</p>
-                        <p style={{
-                            margin: '0',
-                            fontSize: '1.3rem',
-                            fontWeight: '800',
-                            color: '#222',
-                            fontFamily: 'monospace'
-                        }}>{orderData.orderId}</p>
-                    </div>
-
-                    {/* Order Summary */}
-                    <div style={{
-                        background: '#fafafa',
-                        padding: '1.2rem',
-                        borderRadius: '12px',
-                        marginBottom: '1.5rem',
-                        textAlign: 'left'
-                    }}>
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            marginBottom: '0.8rem',
-                            fontSize: '0.9rem'
-                        }}>
-                            <span style={{ color: '#666' }}>Subtotal:</span>
-                            <span style={{ fontWeight: '600', color: '#222' }}>Rs. {orderData.subtotal.toLocaleString('en-PK')}</span>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                        <div style={{ width: 44, height: 44, borderRadius: 44, background: 'linear-gradient(135deg,#22c55e 0%,#16a34a 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontSize: 20 }}>
+                            ✓
                         </div>
-                        {orderData.discount > 0 && (
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                marginBottom: '0.8rem',
-                                fontSize: '0.9rem'
-                            }}>
-                                <span style={{ color: '#22c55e' }}>Discount ({orderData.discountPercent}%):</span>
-                                <span style={{ fontWeight: '600', color: '#22c55e' }}>-Rs. {orderData.discount.toLocaleString('en-PK')}</span>
-                            </div>
-                        )}
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            marginBottom: '0.8rem',
-                            fontSize: '0.9rem'
-                        }}>
-                            <span style={{ color: '#666' }}>Shipping:</span>
-                            <span style={{ fontWeight: '600', color: orderData.shipping === 0 ? '#22c55e' : '#d36a6a' }}>
-                                {orderData.shipping === 0 ? 'FREE' : `Rs. ${orderData.shipping}`}
-                            </span>
+                        <div style={{ flex: 1 }}>
+                            <div style={{ fontSize: '1rem', fontWeight: 800, color: '#111' }}>Order Placed</div>
+                            <div style={{ fontSize: '0.85rem', color: '#666' }}>Thanks — we are preparing your order</div>
                         </div>
-                        <div style={{
-                            borderTop: '2px solid #e5e7eb',
-                            paddingTop: '0.8rem',
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            fontSize: '1.1rem',
-                            fontWeight: '700'
-                        }}>
-                            <span>Total:</span>
-                            <span style={{ color: '#d36a6a' }}>Rs. {orderData.total.toLocaleString('en-PK')}</span>
+                        <div style={{ textAlign: 'right' }}>
+                            <div style={{ fontSize: '0.95rem', fontWeight: 800, color: '#d36a6a' }}>Rs. {orderData.total.toLocaleString('en-PK')}</div>
                         </div>
                     </div>
 
-                    {/* Buttons */}
-                    <div style={{
-                        display: 'flex',
-                        gap: '1rem',
-                        flexDirection: 'column'
-                    }}>
-                        <button
-                            onClick={() => {
-                                setShowSuccessPopup(false);
-                                navigate('/');
-                            }}
-                            style={{
-                                padding: '1rem 1.5rem',
-                                background: 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)',
-                                color: '#fff',
-                                border: 'none',
-                                borderRadius: '10px',
-                                fontSize: '1rem',
-                                fontWeight: '700',
-                                cursor: 'pointer',
-                                transition: 'all 0.3s ease',
-                                boxShadow: '0 4px 15px rgba(34, 197, 94, 0.3)',
-                                letterSpacing: '0.5px'
-                            }}
-                            onMouseEnter={(e) => {
-                                e.target.style.transform = 'translateY(-2px)';
-                                e.target.style.boxShadow = '0 6px 20px rgba(34, 197, 94, 0.4)';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.target.style.transform = 'translateY(0)';
-                                e.target.style.boxShadow = '0 4px 15px rgba(34, 197, 94, 0.3)';
-                            }}
-                        >
-                            Continue Shopping
-                        </button>
-                        <button
-                            onClick={() => {
-                                setShowSuccessPopup(false);
-                                navigate('/products');
-                            }}
-                            style={{
-                                padding: '1rem 1.5rem',
-                                background: '#f5f5f5',
-                                color: '#222',
-                                border: '2px solid #e5e7eb',
-                                borderRadius: '10px',
-                                fontSize: '1rem',
-                                fontWeight: '700',
-                                cursor: 'pointer',
-                                transition: 'all 0.3s ease',
-                                letterSpacing: '0.5px'
-                            }}
-                            onMouseEnter={(e) => {
-                                e.target.style.background = '#e5e7eb';
-                                e.target.style.borderColor = '#999';
-                            }}
-                            onMouseLeave={(e) => {
-                                e.target.style.background = '#f5f5f5';
-                                e.target.style.borderColor = '#e5e7eb';
-                            }}
-                        >
-                            View All Products
-                        </button>
+                    <div style={{ display: 'flex', gap: '8px', marginTop: 10 }}>
+                        <div style={{ flex: 1, background: '#f5f5f5', padding: '8px 10px', borderRadius: 8, textAlign: 'center', fontWeight: 700 }}>{orderData.orderId}</div>
+                    </div>
+
+                    <div style={{ display: 'flex', gap: '8px', marginTop: 12 }}>
+                        <button onClick={() => { setShowSuccessPopup(false); navigate('/'); }} style={{ flex: 1, padding: '10px', background: 'linear-gradient(135deg,#22c55e 0%,#16a34a 100%)', color: '#fff', border: 'none', borderRadius: 10, fontWeight: 800 }}>CONTINUE SHOPPING</button>
+                        <button onClick={() => { setShowSuccessPopup(false); navigate('/products'); }} style={{ flex: 1, padding: '10px', background: '#fff', color: '#111', border: '1px solid #e6e6e6', borderRadius: 10, fontWeight: 700 }}>VIEW PRODUCTS</button>
                     </div>
                 </div>
             </div>
@@ -293,9 +128,45 @@ export const Checkout = () => {
                 orderId: `ORD-${Date.now()}`
             };
 
-            const orders = JSON.parse(localStorage.getItem('orders')) || [];
-            orders.push(newOrderData);
-            localStorage.setItem('orders', JSON.stringify(orders));
+            try {
+                const raw = typeof window !== 'undefined' && localStorage.getItem('orders');
+                const orders = raw ? JSON.parse(raw) : [];
+
+                // Try to save full order list, but guard against quota
+                const fullSerialized = JSON.stringify([...orders, newOrderData]);
+                const SIZE_THRESHOLD = 1024 * 1024; // 1MB
+
+                if (fullSerialized.length <= SIZE_THRESHOLD) {
+                    localStorage.setItem('orders', fullSerialized);
+                } else {
+                    // Save a reduced order representation (strip large fields from items)
+                    const reducedOrder = {
+                        ...newOrderData,
+                        items: newOrderData.items.map(it => {
+                            const { images, relatedImages, description, longDescription, reviews, ...keep } = it;
+                            return keep;
+                        })
+                    };
+
+                    const reducedSerialized = JSON.stringify([...orders, reducedOrder]);
+                    if (reducedSerialized.length <= SIZE_THRESHOLD) {
+                        localStorage.setItem('orders', reducedSerialized);
+                        console.warn('Checkout: saved reduced order to localStorage to avoid quota');
+                    } else {
+                        // Final fallback: try sessionStorage
+                        try {
+                            if (typeof window !== 'undefined' && window.sessionStorage) {
+                                sessionStorage.setItem('orders', JSON.stringify([...orders, reducedOrder]));
+                                console.warn('Checkout: saved reduced order to sessionStorage as fallback');
+                            }
+                        } catch (err) {
+                            console.error('Checkout: failed to save order in sessionStorage', err);
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error('Checkout: failed to persist order', err);
+            }
 
             clearCart();
             setOrderData(newOrderData);

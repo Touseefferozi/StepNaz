@@ -1,0 +1,305 @@
+/* Mobile-Specific Fixes for StepNaz E-Commerce */
+
+/* Prevent horizontal scrolling */
+html,
+body {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+/* Product Grid - 2 Columns on Mobile */
+@media (max-width: 768px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.8rem !important;
+        padding: 0 0.5rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.7rem !important;
+        padding: 0 0.4rem !important;
+    }
+}
+
+@media (max-width: 360px) {
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 0.5rem !important;
+        padding: 0 0.3rem !important;
+    }
+}
+
+/* Product Detail Page Mobile Fixes */
+@media (max-width: 768px) {
+    /* Review Cards */
+    .review-item {
+        width: 100%;
+        max-width: 100%;
+        overflow: hidden;
+    }
+    
+    .review-header {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    
+    .review-author {
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .review-author strong {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    .review-comment {
+        width: 100%;
+        max-width: 100%;
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+    
+    /* Verified Badge */
+    .verified-badge {
+        display: inline-block;
+        padding: 0.3rem 0.6rem;
+        font-size: 0.75rem;
+        white-space: nowrap;
+    }
+    
+    /* Star Ratings */
+    .review-rating,
+    .product-rating-detail {
+        flex-wrap: wrap;
+    }
+    
+    /* Product Images */
+    .product-image,
+    .main-image {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+    }
+    
+    .product-image img,
+    .main-image img {
+        width: 100%;
+        height: auto;
+        max-width: 100%;
+        object-fit: contain;
+    }
+    
+    /* Product Info Sections */
+    .product-description,
+    .product-features,
+    .product-specs {
+        width: 100%;
+        max-width: 100%;
+        padding: 0.8rem;
+    }
+    
+    /* Buttons */
+    .btn,
+    .btn-primary,
+    .btn-secondary,
+    .btn-add-to-cart,
+    .btn-buy-now {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Forms */
+    .form-group,
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Tables */
+    .discount-table {
+        width: 100%;
+        overflow-x: auto;
+        display: block;
+    }
+    
+    .discount-table table {
+        min-width: 100%;
+    }
+    
+    /* Price Section */
+    .pricing-section,
+    .current-price,
+    .original-price,
+    .savings {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Size Selection */
+    .size-options {
+        width: 100%;
+        max-width: 100%;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0.4rem;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+    }
+    
+    .size-btn {
+        width: 100%;
+        min-width: 50px;
+        min-height: 45px;
+        font-size: 0.85rem;
+        padding: 0.5rem 0.3rem;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Extra small screens */
+    .review-item {
+        padding: 0.7rem;
+        margin-bottom: 0.6rem;
+    }
+    
+    .review-author strong {
+        font-size: 0.9rem;
+    }
+    
+    .review-date {
+        font-size: 0.7rem;
+    }
+    
+    .review-comment {
+        font-size: 0.8rem;
+        line-height: 1.3;
+    }
+    
+    .review-rating {
+        font-size: 0.9rem;
+    }
+    
+    .verified-badge {
+        font-size: 0.7rem;
+        padding: 0.25rem 0.5rem;
+    }
+    
+    .size-options {
+        grid-template-columns: repeat(6, 1fr);
+        gap: 0.3rem;
+        overflow-x: auto;
+    }
+    
+    .size-btn {
+        min-width: 45px;
+        min-height: 42px;
+        font-size: 0.75rem;
+        padding: 0.4rem 0.2rem;
+    }
+    
+    /* Product Info */
+    .product-title {
+        font-size: 1.3rem;
+        line-height: 1.3;
+        margin-bottom: 0.6rem;
+    }
+    
+    .current-price {
+        font-size: 1.3rem;
+    }
+    
+    .original-price {
+        font-size: 0.85rem;
+    }
+    
+    /* Sections */
+    .product-reviews-section,
+    .product-description,
+    .product-features {
+        padding: 0.7rem;
+    }
+    
+    .product-reviews-section h3 {
+        font-size: 1.1rem;
+    }
+    
+    .product-reviews-section h4 {
+        font-size: 0.95rem;
+    }
+}
+
+/* Scrollbar improvements for mobile */
+@media (max-width: 768px) {
+    /* Thin scrollbars for mobile */
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 2px;
+    }
+}
+
+/* Touch target improvements */
+@media (max-width: 768px) {
+    /* Cart Icon Center Fix */
+    .cart-icon {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        position: relative;
+    }
+    
+    .cart-count {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        line-height: 1 !important;
+        text-align: center !important;
+    }
+    
+    button,
+    a,
+    input[type="submit"],
+    input[type="button"] {
+        min-height: 44px;
+        min-width: 44px;
+    }
+    
+    .nav-link,
+    .mobile-nav-link {
+        min-height: 48px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+/* Text overflow prevention */
+@media (max-width: 768px) {
+    h1, h2, h3, h4, h5, h6,
+    p, span, div, a {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        hyphens: auto;
+    }
+}

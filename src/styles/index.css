@@ -40,8 +40,17 @@
     box-sizing: border-box;
 }
 
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
 html {
     scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -50,16 +59,23 @@ body {
     color: var(--text-dark);
     background-color: var(--white);
     line-height: 1.6;
+    overflow-x: hidden;
+    width: 100%;
+    min-height: 100vh;
 }
 
 .app {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .main-content {
     flex: 1;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 /* Container */
@@ -67,6 +83,22 @@ body {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 0 15px;
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0 12px;
+        max-width: 100%;
+    }
 }
 
 /* Typography */
@@ -195,21 +227,142 @@ textarea:focus {
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+    
+    h3 {
+        font-size: 1.6rem;
+    }
+}
+
 @media (max-width: 768px) {
+    :root {
+        --font-size-base: 14px;
+    }
+    
     h1 {
         font-size: 2rem;
     }
 
     h2 {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
+    }
+    
+    h3 {
+        font-size: 1.3rem;
+    }
+    
+    h4 {
+        font-size: 1.15rem;
     }
 
     .form-row {
         grid-template-columns: 1fr;
+        gap: 1rem;
     }
 
     .btn {
         width: 100%;
         min-width: auto;
+        padding: 11px 20px;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    select,
+    textarea {
+        padding: 9px 11px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    :root {
+        --font-size-base: 13px;
+    }
+    
+    h1 {
+        font-size: 1.6rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+    
+    h3 {
+        font-size: 1.2rem;
+    }
+    
+    h4 {
+        font-size: 1.05rem;
+    }
+    
+    .btn {
+        padding: 10px 18px;
+        font-size: 13px;
+    }
+    
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="number"],
+    select,
+    textarea {
+        padding: 8px 10px;
+        font-size: 13px;
+    }
+    
+    .form-group {
+        margin-bottom: 1.2rem;
+    }
+}
+
+/* Mobile Utility Classes */
+.mobile-only {
+    display: none;
+}
+
+.desktop-only {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .mobile-only {
+        display: block;
+    }
+    
+    .desktop-only {
+        display: none;
+    }
+    
+    .mobile-text-center {
+        text-align: center;
+    }
+    
+    .mobile-full-width {
+        width: 100%;
+    }
+}
+
+/* Smooth Scrolling for Mobile */
+@media (max-width: 768px) {
+    * {
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* Prevent Text Size Adjustment on Mobile */
+@media (max-width: 768px) {
+    html {
+        -webkit-text-size-adjust: 100%;
+        text-size-adjust: 100%;
     }
 }

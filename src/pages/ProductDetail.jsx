@@ -25,7 +25,7 @@ export const ProductDetail = () => {
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     const [showAllReviews, setShowAllReviews] = useState(false);
     const [showReviewPopup, setShowReviewPopup] = useState(false);
-    const { addToCart, cart } = useCart();
+    const { addToCart, cart, updateQuantity, removeFromCart } = useCart();
 
     // Load product from localStorage or initial products
     useEffect(() => {
@@ -191,12 +191,43 @@ export const ProductDetail = () => {
     return (
         <div className="product-detail-page">
             <div className="container">
-                <div className="breadcrumb">
-                    <Link to="/">Home</Link>
-                    <span> / </span>
-                    <Link to="/products">Products</Link>
-                    <span> / </span>
-                    <span>{product.name}</span>
+                <div className="breadcrumb" style={{
+                    fontSize: 'clamp(0.8rem, 1.8vw, 0.9rem)',
+                    color: '#666',
+                    padding: '0.8rem 0',
+                    display: 'flex',
+                    flexWrap: 'wrap',
+                    alignItems: 'baseline',
+                    gap: '0.4rem',
+                    lineHeight: '1.6'
+                }}>
+                    <Link to="/" style={{
+                        color: '#ea580c',
+                        textDecoration: 'none',
+                        fontWeight: '600',
+                        transition: 'color 0.2s ease',
+                        whiteSpace: 'nowrap'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#c94a07'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#ea580c'}>Home</Link>
+                    <span style={{ color: '#999', fontSize: '0.9em', lineHeight: '1' }}>/</span>
+                    <Link to="/products" style={{
+                        color: '#ea580c',
+                        textDecoration: 'none',
+                        fontWeight: '600',
+                        transition: 'color 0.2s ease',
+                        whiteSpace: 'nowrap'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.color = '#c94a07'}
+                    onMouseLeave={(e) => e.currentTarget.style.color = '#ea580c'}>Products</Link>
+                    <span style={{ color: '#999', fontSize: '0.9em', lineHeight: '1' }}>/</span>
+                    <span style={{ 
+                        color: '#666', 
+                        fontWeight: '500',
+                        fontSize: 'clamp(0.8rem, 1.8vw, 0.9rem)',
+                        whiteSpace: 'normal',
+                        wordWrap: 'break-word'
+                    }}>{product.name}</span>
                 </div>
 
                 <div className="product-detail">
@@ -251,65 +282,6 @@ export const ProductDetail = () => {
                             )}
                         </div>
 
-                        {/* Description Section */}
-                        <div className="product-description" style={{margin: '1.5rem 0', padding: '1rem', background: '#fafafa', borderRadius: '8px'}}>
-                            <h4 style={{marginBottom: '0.5rem'}}>Description</h4>
-                            <p style={{margin: 0}}>
-                                Best masndaksjd asdas das duays d as (Description Best masndaksj d asdas das duays d as)
-                            </p>
-                        </div>
-
-                        {/* Quick Info Section */}
-                        <div className="quick-info-section">
-                            <div className="quick-info-item">
-                                <i className="fas fa-bolt"></i>
-                                <div>
-                                    <strong>Instant dispatch, no delays</strong>
-                                </div>
-                            </div>
-                            {/* <div className="quick-info-item">
-                                <i className="fas fa-truck"></i>
-                                <div>
-                                    <strong>Est. shipping by Feb 09, 2026</strong>
-                                    <p>Express delivery · Pakistan</p>
-                                </div>
-                            </div> */}
-                            <div className="quick-info-item">
-                                <i className="fas fa-undo"></i>
-                                <div>
-                                    <strong>Easy 14 days return and refund</strong>
-                                    <p>Return for a different size within 14 days.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Quantity Selection */}
-                        <div className="add-to-cart-section">
-                            <div className="quantity-selector">
-                                <label htmlFor="quantity">Quantity</label>
-                                <div className="quantity-controls">
-                                    <button 
-                                        onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                                        className="qty-btn">
-                                        −
-                                    </button>
-                                    <input 
-                                        type="number" 
-                                        id="quantity"
-                                        value={quantity}
-                                        onChange={(e) => setQuantity(Math.max(1, parseInt(e.target.value) || 1))}
-                                        min="1"
-                                    />
-                                    <button 
-                                        onClick={() => setQuantity(quantity + 1)}
-                                        className="qty-btn"
-                                    >
-                                        +
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-
                         {/* Size Selection - Only for Footwear */}
                         {product.category === 'Footwear' && (
                             <div className="size-section">
@@ -349,6 +321,38 @@ export const ProductDetail = () => {
                             >
                                 Buy Now
                             </button>
+                        </div>
+
+                        {/* Description Section - Moved Below Buttons */}
+                        <div className="product-description" style={{margin: '1.5rem 0', padding: '1rem', background: '#fafafa', borderRadius: '8px'}}>
+                            <h4 style={{marginBottom: '0.5rem'}}>Description</h4>
+                            <p style={{margin: 0}}>
+                                Best masndaksjd asdas das duays d as (Description Best masndaksj d asdas das duays d as)
+                            </p>
+                        </div>
+
+                        {/* Quick Info Section */}
+                        <div className="quick-info-section">
+                            <div className="quick-info-item">
+                                <i className="fas fa-bolt"></i>
+                                <div>
+                                    <strong>Instant dispatch, no delays</strong>
+                                </div>
+                            </div>
+                            {/* <div className="quick-info-item">
+                                <i className="fas fa-truck"></i>
+                                <div>
+                                    <strong>Est. shipping by Feb 09, 2026</strong>
+                                    <p>Express delivery · Pakistan</p>
+                                </div>
+                            </div> */}
+                            <div className="quick-info-item">
+                                <i className="fas fa-undo"></i>
+                                <div>
+                                    <strong>Easy 14 days return and refund</strong>
+                                    <p>Return for a different size within 14 days.</p>
+                                </div>
+                            </div>
                         </div>
 
                         {/* Shipping & Guarantees Section */}
@@ -602,51 +606,425 @@ export const ProductDetail = () => {
 
             {/* Cart Sidebar */}
             {showCartSidebar && (
-                <div className="cart-sidebar-overlay" onClick={() => setShowCartSidebar(false)}>
-                    <div className="cart-sidebar" onClick={(e) => e.stopPropagation()}>
-                        <div className="cart-sidebar-header">
-                            <h2>Added to Bag</h2>
-                            <button className="close-btn" onClick={() => setShowCartSidebar(false)}>
-                                <i className="fas fa-times"></i>
+                <div className="cart-sidebar-overlay" onClick={() => setShowCartSidebar(false)} style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'rgba(0, 0, 0, 0.6)',
+                    backdropFilter: 'blur(4px)',
+                    zIndex: 9999,
+                    animation: 'fadeIn 0.3s ease'
+                }}>
+                    <div className="cart-sidebar" onClick={(e) => e.stopPropagation()} style={{
+                        position: 'fixed',
+                        top: 0,
+                        right: 0,
+                        width: '100%',
+                        maxWidth: '450px',
+                        height: '100vh',
+                        background: '#fff',
+                        boxShadow: '-4px 0 20px rgba(0, 0, 0, 0.15)',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        animation: 'slideInRight 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+                        overflow: 'hidden'
+                    }}>
+                        <div className="cart-sidebar-header" style={{
+                            padding: '1.2rem 1.5rem',
+                            background: '#fff',
+                            color: '#1a1a1a',
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                            borderBottom: '1px solid #f0f0f0',
+                            flexShrink: 0
+                        }}>
+                            <h2 style={{
+                                margin: 0,
+                                fontSize: 'clamp(1.2rem, 4vw, 1.5rem)',
+                                fontWeight: '700',
+                                letterSpacing: '-0.02em',
+                                textTransform: 'uppercase'
+                            }}>CART</h2>
+                            <button className="close-btn" onClick={() => setShowCartSidebar(false)} style={{
+                                background: 'transparent',
+                                border: 'none',
+                                width: '32px',
+                                height: '32px',
+                                color: '#1a1a1a',
+                                fontSize: '1.5rem',
+                                cursor: 'pointer',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                transition: 'all 0.2s ease',
+                                lineHeight: 1
+                            }}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.color = '#ea580c';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.color = '#1a1a1a';
+                            }}>
+                                ✕
                             </button>
                         </div>
 
-                        <div className="cart-sidebar-content">
+                        {/* Free Shipping Banner */}
+                        <div style={{
+                            background: 'linear-gradient(90deg, #ea580c 0%, #f97316 100%)',
+                            padding: 'clamp(0.6rem, 2vw, 0.8rem) clamp(1rem, 3vw, 1.5rem)',
+                            color: '#fff',
+                            fontSize: 'clamp(0.8rem, 2vw, 0.9rem)',
+                            fontWeight: '600',
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            flexShrink: 0
+                        }}>
+                            <span style={{ fontSize: 'clamp(1rem, 2.5vw, 1.2rem)' }}>🎉</span>
+                            <span>Congrats! You've unlocked <strong>FREE SHIPPING</strong></span>
+                        </div>
+
+                        <div className="cart-sidebar-content" style={{
+                            flex: 1,
+                            overflowY: 'auto',
+                            padding: 'clamp(1rem, 3vw, 1.5rem)',
+                            background: '#fff'
+                        }}>
                             {cart && cart.length > 0 ? (
                                 <>
-                                    <div className="cart-items">
-                                        {cart.map((item, index) => (
-                                            <div key={index} className="cart-item">
-                                                <img src={item.image} alt={item.name} className="cart-item-image" />
-                                                <div className="cart-item-details">
-                                                    <h4>{item.name}</h4>
-                                                    <p className="cart-item-size">Size: {item.size}</p>
-                                                    <p className="cart-item-qty">Qty: {item.quantity}</p>
-                                                    <p className="cart-item-price">Rs. {item.price.toLocaleString('en-PK')}</p>
+                                    <div className="cart-items" style={{
+                                        display: 'flex',
+                                        flexDirection: 'column',
+                                        gap: 'clamp(0.8rem, 2vw, 1rem)'
+                                    }}>
+                                        {cart.map((item) => (
+                                            <div key={`${item.id}-${item.size}`} className="cart-item" style={{
+                                                display: 'flex',
+                                                gap: 'clamp(0.8rem, 2vw, 1rem)',
+                                                padding: 'clamp(0.8rem, 2vw, 1rem)',
+                                                background: '#fff',
+                                                borderRadius: '12px',
+                                                border: '1px solid #f0f0f0',
+                                                transition: 'all 0.3s ease',
+                                                alignItems: 'center'
+                                            }}
+                                            onMouseEnter={(e) => {
+                                                e.currentTarget.style.boxShadow = '0 4px 16px rgba(0,0,0,0.08)';
+                                                e.currentTarget.style.borderColor = '#e5e7eb';
+                                            }}
+                                            onMouseLeave={(e) => {
+                                                e.currentTarget.style.boxShadow = 'none';
+                                                e.currentTarget.style.borderColor = '#f0f0f0';
+                                            }}>
+                                                <img 
+                                                    src={item.image} 
+                                                    alt={item.name} 
+                                                    className="cart-item-image" 
+                                                    style={{
+                                                        width: 'clamp(90px, 22vw, 110px)',
+                                                        height: 'clamp(90px, 22vw, 110px)',
+                                                        objectFit: 'cover',
+                                                        borderRadius: '8px',
+                                                        flexShrink: 0
+                                                    }}
+                                                />
+                                                <div className="cart-item-details" style={{
+                                                    flex: 1,
+                                                    display: 'flex',
+                                                    flexDirection: 'column',
+                                                    gap: '0.5rem',
+                                                    minWidth: 0
+                                                }}>
+                                                    <h4 style={{
+                                                        margin: 0,
+                                                        fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
+                                                        fontWeight: '700',
+                                                        color: '#1a1a1a',
+                                                        lineHeight: '1.3',
+                                                        overflow: 'hidden',
+                                                        textOverflow: 'ellipsis',
+                                                        display: '-webkit-box',
+                                                        WebkitLineClamp: 2,
+                                                        WebkitBoxOrient: 'vertical'
+                                                    }}>{item.name}</h4>
+                                                    {item.size && (
+                                                        <p style={{
+                                                            margin: 0,
+                                                            fontSize: 'clamp(0.75rem, 1.8vw, 0.85rem)',
+                                                            color: '#666',
+                                                            fontWeight: '600'
+                                                        }}>Shoe size: {item.size}</p>
+                                                    )}
+                                                    <div style={{
+                                                        display: 'flex',
+                                                        alignItems: 'center',
+                                                        gap: '0.6rem',
+                                                        marginTop: '0.3rem',
+                                                        flexWrap: 'wrap'
+                                                    }}>
+                                                        <div style={{
+                                                            display: 'flex',
+                                                            alignItems: 'center',
+                                                            gap: '0.6rem'
+                                                        }}>
+                                                            <button 
+                                                                onClick={() => {
+                                                                    const newQty = item.quantity - 1;
+                                                                    if (newQty > 0) {
+                                                                        updateQuantity(item.id, newQty, item.size);
+                                                                    } else {
+                                                                        removeFromCart(item.id, item.size);
+                                                                    }
+                                                                }}
+                                                                style={{
+                                                                    width: '28px',
+                                                                    height: '28px',
+                                                                    borderRadius: '6px',
+                                                                    border: '1px solid #e5e7eb',
+                                                                    background: '#fff',
+                                                                    color: '#666',
+                                                                    fontSize: '1rem',
+                                                                    fontWeight: '600',
+                                                                    cursor: 'pointer',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
+                                                                    justifyContent: 'center',
+                                                                    transition: 'all 0.2s ease'
+                                                                }}
+                                                                onMouseEnter={(e) => {
+                                                                    e.currentTarget.style.background = '#f9fafb';
+                                                                    e.currentTarget.style.borderColor = '#ea580c';
+                                                                }}
+                                                                onMouseLeave={(e) => {
+                                                                    e.currentTarget.style.background = '#fff';
+                                                                    e.currentTarget.style.borderColor = '#e5e7eb';
+                                                                }}
+                                                            >
+                                                                −
+                                                            </button>
+                                                            <span style={{
+                                                                fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
+                                                                fontWeight: '700',
+                                                                color: '#1a1a1a',
+                                                                minWidth: '20px',
+                                                                textAlign: 'center'
+                                                            }}>{item.quantity}</span>
+                                                            <button 
+                                                                onClick={() => {
+                                                                    updateQuantity(item.id, item.quantity + 1, item.size);
+                                                                }}
+                                                                style={{
+                                                                    width: '28px',
+                                                                    height: '28px',
+                                                                    borderRadius: '6px',
+                                                                    border: '1px solid #e5e7eb',
+                                                                    background: '#fff',
+                                                                    color: '#666',
+                                                                    fontSize: '1rem',
+                                                                    fontWeight: '600',
+                                                                    cursor: 'pointer',
+                                                                    display: 'flex',
+                                                                    alignItems: 'center',
+                                                                    justifyContent: 'center',
+                                                                    transition: 'all 0.2s ease'
+                                                                }}
+                                                                onMouseEnter={(e) => {
+                                                                    e.currentTarget.style.background = '#f9fafb';
+                                                                    e.currentTarget.style.borderColor = '#ea580c';
+                                                                }}
+                                                                onMouseLeave={(e) => {
+                                                                    e.currentTarget.style.background = '#fff';
+                                                                    e.currentTarget.style.borderColor = '#e5e7eb';
+                                                                }}
+                                                            >
+                                                                +
+                                                            </button>
+                                                        </div>
+                                                        <span style={{
+                                                            fontSize: 'clamp(0.95rem, 2.2vw, 1.05rem)',
+                                                            fontWeight: '800',
+                                                            color: '#ea580c',
+                                                            marginLeft: 'auto'
+                                                        }}>Rs.{item.price.toLocaleString('en-PK')}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
-                                    <div className="cart-sidebar-footer">
-                                        <div className="cart-total">
-                                            <span>Total Items: {cart.reduce((sum, item) => sum + item.quantity, 0)}</span>
-                                            <span>Total: Rs. {cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString('en-PK')}</span>
+
+                                    {/* Recommended Products Section - Hidden */}
+                                    {false && (
+                                    <div style={{
+                                        marginTop: 'clamp(1.5rem, 4vw, 2rem)',
+                                        paddingTop: 'clamp(1.2rem, 3vw, 1.5rem)',
+                                        borderTop: '1px solid #f0f0f0'
+                                    }}>
+                                        <h3 style={{
+                                            fontSize: 'clamp(0.95rem, 2.5vw, 1.1rem)',
+                                            fontWeight: '700',
+                                            color: '#1a1a1a',
+                                            marginBottom: 'clamp(0.8rem, 2vw, 1rem)',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '0.5px'
+                                        }}>RECOMMENDED FOR YOU</h3>
+                                        <div style={{
+                                            display: 'grid',
+                                            gridTemplateColumns: 'repeat(auto-fit, minmax(70px, 1fr))',
+                                            gap: 'clamp(0.6rem, 1.5vw, 0.8rem)',
+                                            maxWidth: '100%'
+                                        }}>
+                                            {initialProducts.slice(0, 4).map((prod) => (
+                                                <Link 
+                                                    key={prod.id} 
+                                                    to={`/product/${prod.id}`}
+                                                    onClick={() => setShowCartSidebar(false)}
+                                                    style={{
+                                                        textDecoration: 'none',
+                                                        display: 'flex',
+                                                        flexDirection: 'column',
+                                                        alignItems: 'center',
+                                                        gap: '0.4rem'
+                                                    }}
+                                                >
+                                                    <img 
+                                                        src={prod.image} 
+                                                        alt={prod.name}
+                                                        style={{
+                                                            width: '100%',
+                                                            aspectRatio: '1',
+                                                            objectFit: 'cover',
+                                                            borderRadius: '8px',
+                                                            border: '1px solid #f0f0f0',
+                                                            transition: 'all 0.2s ease'
+                                                        }}
+                                                        onMouseEnter={(e) => {
+                                                            e.currentTarget.style.transform = 'scale(1.05)';
+                                                            e.currentTarget.style.borderColor = '#ea580c';
+                                                        }}
+                                                        onMouseLeave={(e) => {
+                                                            e.currentTarget.style.transform = 'scale(1)';
+                                                            e.currentTarget.style.borderColor = '#f0f0f0';
+                                                        }}
+                                                    />
+                                                    <span style={{
+                                                        fontSize: 'clamp(0.65rem, 1.5vw, 0.75rem)',
+                                                        color: '#1a1a1a',
+                                                        fontWeight: '600',
+                                                        textAlign: 'center',
+                                                        lineHeight: '1.2',
+                                                        overflow: 'hidden',
+                                                        textOverflow: 'ellipsis',
+                                                        display: '-webkit-box',
+                                                        WebkitLineClamp: 2,
+                                                        WebkitBoxOrient: 'vertical'
+                                                    }}>{prod.name}</span>
+                                                </Link>
+                                            ))}
                                         </div>
-                                        <Link to="/cart" className="btn btn-primary" style={{ width: '100%', textAlign: 'center' }}>
-                                            View Cart
-                                        </Link>
-                                        <button 
-                                            className="btn btn-secondary" 
-                                            style={{ width: '100%', marginTop: '0.8rem' }}
-                                            onClick={() => setShowCartSidebar(false)}
+                                    </div>
+                                    )}
+
+                                    {/* Discounts Section */}
+                                    <div style={{
+                                        marginTop: 'clamp(1.2rem, 3vw, 1.5rem)',
+                                        paddingTop: 'clamp(1.2rem, 3vw, 1.5rem)',
+                                        borderTop: '1px solid #f0f0f0'
+                                    }}>
+                                        <h4 style={{
+                                            fontSize: 'clamp(0.9rem, 2vw, 1rem)',
+                                            fontWeight: '700',
+                                            color: '#1a1a1a',
+                                            marginBottom: '0.5rem'
+                                        }}>Discounts</h4>
+                                    </div>
+
+                                    <div className="cart-sidebar-footer" style={{
+                                        padding: 'clamp(1.2rem, 3vw, 1.5rem) 0 0 0',
+                                        marginTop: 'clamp(1rem, 2.5vw, 1.5rem)',
+                                        background: 'transparent',
+                                        border: 'none',
+                                        borderTop: '2px solid #f0f0f0',
+                                        borderRadius: 0
+                                    }}>
+                                        <div className="cart-total" style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            gap: '0.5rem',
+                                            marginBottom: 'clamp(0.8rem, 2vw, 1rem)'
+                                        }}>
+                                            <div style={{
+                                                display: 'flex',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                                fontSize: 'clamp(0.9rem, 2vw, 1rem)',
+                                                color: '#1a1a1a',
+                                                fontWeight: '700',
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '0.5px',
+                                                gap: '1rem'
+                                            }}>
+                                                <span>SUBTOTAL</span>
+                                                <span style={{ 
+                                                    fontSize: 'clamp(1rem, 2.5vw, 1.2rem)',
+                                                    color: '#1a1a1a',
+                                                    fontWeight: '800'
+                                                }}>Rs.{cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toLocaleString('en-PK')}</span>
+                                            </div>
+                                            <p style={{
+                                                fontSize: 'clamp(0.7rem, 1.6vw, 0.8rem)',
+                                                color: '#666',
+                                                margin: '0.5rem 0 1rem 0',
+                                                lineHeight: '1.4'
+                                            }}>Shipping, taxes, and discount codes calculated at checkout.</p>
+                                        </div>
+                                        <Link to="/checkout" className="btn btn-primary" style={{ 
+                                            width: '100%', 
+                                            textAlign: 'center',
+                                            padding: 'clamp(0.9rem, 2.5vw, 1rem)',
+                                            fontSize: 'clamp(0.9rem, 2vw, 1rem)',
+                                            fontWeight: '700',
+                                            borderRadius: '0',
+                                            background: '#1a1a1a',
+                                            color: '#fff',
+                                            border: 'none',
+                                            textTransform: 'uppercase',
+                                            letterSpacing: '1px',
+                                            transition: 'all 0.3s ease',
+                                            textDecoration: 'none',
+                                            display: 'block'
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.currentTarget.style.background = '#333';
+                                            e.currentTarget.style.transform = 'translateY(-2px)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.currentTarget.style.background = '#1a1a1a';
+                                            e.currentTarget.style.transform = 'translateY(0)';
+                                        }}
                                         >
-                                            Continue Shopping
-                                        </button>
+                                            CHECK OUT
+                                        </Link>
                                     </div>
                                 </>
                             ) : (
-                                <div className="empty-cart">
-                                    <p>Your bag is empty</p>
+                                <div className="empty-cart" style={{
+                                    textAlign: 'center',
+                                    padding: '3rem 1rem',
+                                    color: '#999'
+                                }}>
+                                    <div style={{
+                                        fontSize: '3rem',
+                                        marginBottom: '1rem'
+                                    }}>🛍️</div>
+                                    <p style={{
+                                        fontSize: '1.1rem',
+                                        fontWeight: '600',
+                                        margin: 0
+                                    }}>Your bag is empty</p>
                                 </div>
                             )}
                         </div>
@@ -655,43 +1033,70 @@ export const ProductDetail = () => {
             )}
 
             {/* Customer Reviews Section */}
-            <div style={{ marginTop: '6rem', paddingTop: '5rem', borderTop: '1px solid #e5e7eb' }}>
+            <div style={{ 
+                marginTop: '4rem', 
+                paddingTop: '3rem', 
+                borderTop: '1px solid #e5e7eb'
+            }}>
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    marginBottom: '3.5rem',
+                    marginBottom: '2.5rem',
                     flexDirection: 'column',
-                    gap: '0.8rem'
+                    gap: '0.8rem',
+                    padding: '0 1rem'
                 }}>
                     <h2 style={{
-                        fontSize: '3rem',
+                        fontSize: 'clamp(1.8rem, 5vw, 3rem)',
                         fontWeight: '800',
                         color: '#222',
                         margin: '0',
-                        letterSpacing: '-0.5px'
+                        letterSpacing: '-0.5px',
+                        textAlign: 'center'
                     }}>Customer Reviews</h2>
                     <div style={{
                         width: '80px',
                         height: '4px',
                         background: 'linear-gradient(90deg, #d36a6a 0%, #fbbf24 50%, #d36a6a 100%)',
                         borderRadius: '2px',
-                        marginBottom: '1.2rem'
+                        marginBottom: '1rem'
                     }} />
-                    <div style={{display: 'flex', gap: '1.5rem', justifyContent: 'center', marginTop: '1.2rem'}}>
+                    <div style={{
+                        display: 'flex', 
+                        gap: '1rem', 
+                        justifyContent: 'center', 
+                        marginTop: '1rem',
+                        flexWrap: 'wrap',
+                        width: '100%',
+                        maxWidth: '500px'
+                    }}>
                         <button 
                             style={{
                                 background: '#ea580c',
                                 color: '#fff',
                                 border: 'none',
                                 borderRadius: '6px',
-                                padding: '0.6rem 1.5rem',
+                                padding: '0.75rem 1.5rem',
                                 fontWeight: 700,
-                                fontSize: '1rem',
+                                fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
                                 cursor: 'pointer',
-                                boxShadow: '0 2px 8px #ea580c33'
+                                boxShadow: '0 2px 8px #ea580c33',
+                                flex: '1 1 auto',
+                                minWidth: '140px',
+                                transition: 'all 0.3s ease'
                             }}
                             onClick={() => setShowReviewPopup(true)}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.background = '#c94a07';
+                                e.currentTarget.style.transform = 'translateY(-2px)';
+                                e.currentTarget.style.boxShadow = '0 4px 12px #ea580c44';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.background = '#ea580c';
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.boxShadow = '0 2px 8px #ea580c33';
+                            }}
                         >
                             Write Review
                         </button>
@@ -701,13 +1106,28 @@ export const ProductDetail = () => {
                                 color: '#ea580c',
                                 border: '2px solid #ea580c',
                                 borderRadius: '6px',
-                                padding: '0.6rem 1.5rem',
+                                padding: '0.75rem 1.5rem',
                                 fontWeight: 700,
-                                fontSize: '1rem',
+                                fontSize: 'clamp(0.9rem, 2.5vw, 1rem)',
                                 cursor: 'pointer',
-                                boxShadow: '0 2px 8px #ea580c33'
+                                boxShadow: '0 2px 8px #ea580c33',
+                                flex: '1 1 auto',
+                                minWidth: '140px',
+                                transition: 'all 0.3s ease'
                             }}
                             onClick={() => window.scrollTo({top: 0, behavior: 'smooth'})}
+                            onMouseEnter={(e) => {
+                                e.currentTarget.style.background = '#ea580c';
+                                e.currentTarget.style.color = '#fff';
+                                e.currentTarget.style.transform = 'translateY(-2px)';
+                                e.currentTarget.style.boxShadow = '0 4px 12px #ea580c44';
+                            }}
+                            onMouseLeave={(e) => {
+                                e.currentTarget.style.background = '#fff';
+                                e.currentTarget.style.color = '#ea580c';
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.boxShadow = '0 2px 8px #ea580c33';
+                            }}
                         >
                             Another Action
                         </button>
@@ -716,48 +1136,54 @@ export const ProductDetail = () => {
 
                 <div style={{
                     display: 'grid',
-                    gridTemplateColumns: '320px 1fr',
-                    gap: '4rem',
-                    alignItems: 'start'
+                    gridTemplateColumns: window.innerWidth > 768 ? '320px 1fr' : '1fr',
+                    gap: 'clamp(1.5rem, 3vw, 4rem)',
+                    alignItems: 'start',
+                    padding: '0 1rem'
                 }}>
                     {/* Reviews Summary */}
                     <div style={{
-                        padding: '3rem',
+                        padding: 'clamp(1.5rem, 4vw, 3rem)',
                         background: 'linear-gradient(135deg, #fff9f0 0%, #fff 100%)',
                         borderRadius: '16px',
                         border: '1px solid #f0e5d8',
                         boxShadow: '0 2px 16px rgba(0,0,0,0.04)',
-                        position: 'sticky',
+                        position: window.innerWidth > 768 ? 'sticky' : 'static',
                         top: '2rem'
                     }}>
                         <div style={{
-                            marginBottom: '2.5rem'
+                            marginBottom: '2rem'
                         }}>
                             <div style={{
                                 display: 'flex',
                                 alignItems: 'flex-start',
-                                gap: '1.2rem',
-                                marginBottom: '1.5rem'
+                                gap: 'clamp(0.8rem, 2vw, 1.2rem)',
+                                marginBottom: '1.5rem',
+                                flexWrap: window.innerWidth < 480 ? 'wrap' : 'nowrap',
+                                justifyContent: window.innerWidth < 480 ? 'center' : 'flex-start'
                             }}>
                                 <div style={{
-                                    fontSize: '5rem',
+                                    fontSize: 'clamp(3.5rem, 10vw, 5rem)',
                                     fontWeight: '900',
                                     color: '#d36a6a',
                                     lineHeight: '0.9',
                                     textShadow: '0 2px 4px rgba(211, 106, 106, 0.1)'
                                 }}>4.7</div>
                                 <div style={{
-                                    flex: 1
+                                    flex: 1,
+                                    minWidth: window.innerWidth < 480 ? '100%' : 'auto',
+                                    textAlign: window.innerWidth < 480 ? 'center' : 'left'
                                 }}>
                                     <div style={{
                                         display: 'flex',
                                         gap: '0.4rem',
-                                        marginBottom: '0.8rem'
+                                        marginBottom: '0.8rem',
+                                        justifyContent: window.innerWidth < 480 ? 'center' : 'flex-start'
                                     }}>
                                         {[...Array(5)].map((_, i) => (
                                             <span key={i} style={{
                                                 color: '#fbbf24',
-                                                fontSize: '1.5rem',
+                                                fontSize: 'clamp(1.2rem, 3vw, 1.5rem)',
                                                 lineHeight: '1'
                                             }}>★</span>
                                         ))}
@@ -765,7 +1191,7 @@ export const ProductDetail = () => {
                                     <p style={{
                                         margin: '0',
                                         color: '#666',
-                                        fontSize: '0.9rem',
+                                        fontSize: 'clamp(0.8rem, 2vw, 0.9rem)',
                                         fontWeight: '600',
                                         letterSpacing: '0.3px'
                                     }}>Based on 38 reviews</p>
@@ -840,26 +1266,30 @@ export const ProductDetail = () => {
                             display: 'flex',
                             justifyContent: 'space-between',
                             alignItems: 'center',
-                            marginBottom: '2.5rem',
-                            paddingBottom: '1.5rem',
-                            borderBottom: '2px solid #f0f0f0'
+                            marginBottom: '2rem',
+                            paddingBottom: '1rem',
+                            borderBottom: '2px solid #f0f0f0',
+                            flexWrap: 'wrap',
+                            gap: '1rem'
                         }}>
                             <p style={{
                                 margin: '0',
-                                fontSize: '0.95rem',
+                                fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
                                 color: '#666',
                                 fontWeight: '600'
                             }}>Sort by</p>
                             <select style={{
-                                padding: '0.75rem 1rem',
+                                padding: 'clamp(0.6rem, 1.5vw, 0.75rem) clamp(0.8rem, 2vw, 1rem)',
                                 border: '2px solid #e5e7eb',
                                 borderRadius: '8px',
-                                fontSize: '0.95rem',
+                                fontSize: 'clamp(0.85rem, 2vw, 0.95rem)',
                                 color: '#222',
                                 cursor: 'pointer',
                                 background: '#fff',
                                 fontWeight: '600',
-                                transition: 'all 0.2s ease'
+                                transition: 'all 0.2s ease',
+                                minWidth: '150px',
+                                width: window.innerWidth < 480 ? '100%' : 'auto'
                             }}
                             onFocus={(e) => {
                                 e.target.style.borderColor = '#d36a6a';
@@ -1040,34 +1470,43 @@ export const ProductDetail = () => {
                         <button 
                             onClick={() => setShowAllReviews(!showAllReviews)}
                             style={{
+                            maxWidth: '280px',
+                            margin: 'clamp(1.5rem, 3vw, 2.5rem) auto 0',
                             width: '100%',
-                            padding: '1.2rem',
-                            marginTop: '3rem',
-                            border: '2px solid #d36a6a',
-                            borderRadius: '10px',
-                            background: '#fff',
-                            color: '#d36a6a',
-                            fontWeight: '800',
-                            fontSize: '1rem',
+                            padding: 'clamp(0.6rem, 1.5vw, 0.75rem) clamp(1rem, 2vw, 1.2rem)',
+                            border: '2px solid #ea580c',
+                            borderRadius: '8px',
+                            background: 'linear-gradient(135deg, #ffffff 0%, #fff5f0 100%)',
+                            color: '#ea580c',
+                            fontWeight: '700',
+                            fontSize: 'clamp(0.8rem, 1.8vw, 0.9rem)',
                             cursor: 'pointer',
-                            transition: 'all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
-                            letterSpacing: '0.6px',
+                            transition: 'all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)',
+                            letterSpacing: '0.8px',
                             position: 'relative',
-                            overflow: 'hidden'
+                            overflow: 'hidden',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            gap: '0.4rem',
+                            boxShadow: '0 3px 12px rgba(234, 88, 12, 0.12)',
+                            textTransform: 'uppercase'
                         }}
                         onMouseEnter={(e) => {
-                            e.target.style.background = '#d36a6a';
-                            e.target.style.color = '#fff';
-                            e.target.style.transform = 'translateY(-3px)';
-                            e.target.style.boxShadow = '0 8px 20px rgba(211, 106, 106, 0.35)';
+                            e.currentTarget.style.background = 'linear-gradient(135deg, #ea580c 0%, #f97316 100%)';
+                            e.currentTarget.style.color = '#fff';
+                            e.currentTarget.style.transform = 'translateY(-3px) scale(1.02)';
+                            e.currentTarget.style.boxShadow = '0 8px 20px rgba(234, 88, 12, 0.3)';
+                            e.currentTarget.style.borderColor = '#ea580c';
                         }}
                         onMouseLeave={(e) => {
-                            e.target.style.background = '#fff';
-                            e.target.style.color = '#d36a6a';
-                            e.target.style.transform = 'translateY(0)';
-                            e.target.style.boxShadow = 'none';
+                            e.currentTarget.style.background = 'linear-gradient(135deg, #ffffff 0%, #fff5f0 100%)';
+                            e.currentTarget.style.color = '#ea580c';
+                            e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                            e.currentTarget.style.boxShadow = '0 3px 12px rgba(234, 88, 12, 0.12)';
+                            e.currentTarget.style.borderColor = '#ea580c';
                         }}>
-                            {showAllReviews ? 'SHOW LESS' : 'VIEW ALL REVIEWS'}
+                            <span>{showAllReviews ? '▲ SHOW LESS' : '▼ VIEW ALL REVIEWS'}</span>
                         </button>
 
                         {/* All Reviews Section - Shown when expanded */}

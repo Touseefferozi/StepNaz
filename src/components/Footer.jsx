@@ -63,7 +63,7 @@ export const Footer = () => {
                     <p>Made with <i className="fas fa-heart" style={{color: '#d4af37'}}></i> for fashion lovers</p>
                 </div>
             </div>
-
+            
             {/* WhatsApp Floating Button */}
             <a 
                 href="https://wa.me/923219277352" 
